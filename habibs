@@ -1,0 +1,299 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Habibs Hair & Beauty Salon | Elite Experience</title>
+    <link href="https://fonts.googleapis.com/css2?family=Syncopate:wght@400;700&family=Inter:wght@300;400;600&display=swap" rel="stylesheet">
+    <style>
+        :root {
+            --gold: linear-gradient(135deg, #d4af37 0%, #f9f295 50%, #b8860b 100%);
+            --dark-bg: #0a0a0a;
+            --glass: rgba(255, 255, 255, 0.03);
+            --border: rgba(212, 175, 55, 0.3);
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Inter', sans-serif;
+        }
+
+        body {
+            background-color: var(--dark-bg);
+            color: white;
+            overflow-x: hidden;
+            line-height: 1.6;
+        }
+
+        /* 3D Background Effect */
+        .bg-glow {
+            position: fixed;
+            top: 50%;
+            left: 50%;
+            width: 600px;
+            height: 600px;
+            background: radial-gradient(circle, rgba(212, 175, 55, 0.15) 0%, transparent 70%);
+            transform: translate(-50%, -50%);
+            z-index: -1;
+            filter: blur(80px);
+        }
+
+        header {
+            height: 100vh;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            text-align: center;
+            background: linear-gradient(to bottom, transparent, #0a0a0a), url('https://images.unsplash.com/photo-1560066984-138dadb4c035?auto=format&fit=crop&q=80&w=1920') center/cover;
+            perspective: 1000px;
+        }
+
+        h1 {
+            font-family: 'Syncopate', sans-serif;
+            font-size: 5rem;
+            text-transform: uppercase;
+            background: var(--gold);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            margin-bottom: 10px;
+            transform: translateZ(50px);
+            letter-spacing: -2px;
+        }
+
+        .subtitle {
+            font-size: 1.2rem;
+            letter-spacing: 5px;
+            color: #888;
+            text-transform: uppercase;
+        }
+
+        /* Services Grid */
+        .section-title {
+            text-align: center;
+            padding: 100px 0 50px;
+            font-family: 'Syncopate', sans-serif;
+            font-size: 2.5rem;
+        }
+
+        .services-container {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 30px;
+            padding: 0 10%;
+        }
+
+        .service-card {
+            background: var(--glass);
+            border: 1px solid var(--border);
+            padding: 40px;
+            border-radius: 20px;
+            backdrop-filter: blur(10px);
+            transition: all 0.5s ease;
+            cursor: pointer;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .service-card:hover {
+            transform: translateY(-15px) rotateX(10deg);
+            border-color: #d4af37;
+            box-shadow: 0 20px 40px rgba(212, 175, 55, 0.2);
+        }
+
+        .service-card h3 {
+            color: #d4af37;
+            margin-bottom: 15px;
+            font-size: 1.5rem;
+        }
+
+        .service-card ul {
+            list-style: none;
+            color: #ccc;
+        }
+
+        /* Booking Section */
+        .booking-section {
+            padding: 100px 10%;
+            background: #0d0d0d;
+            margin-top: 100px;
+        }
+
+        .booking-box {
+            background: var(--glass);
+            padding: 50px;
+            border-radius: 30px;
+            border: 1px solid var(--border);
+            max-width: 800px;
+            margin: 0 auto;
+        }
+
+        select, input {
+            width: 100%;
+            padding: 15px;
+            margin: 15px 0;
+            background: #1a1a1a;
+            border: 1px solid #333;
+            color: white;
+            border-radius: 10px;
+            font-size: 1rem;
+        }
+
+        .btn-gold {
+            background: var(--gold);
+            color: black;
+            padding: 20px 40px;
+            border: none;
+            border-radius: 50px;
+            font-weight: 700;
+            text-transform: uppercase;
+            cursor: pointer;
+            width: 100%;
+            margin-top: 20px;
+            transition: 0.3s;
+        }
+
+        .btn-gold:hover {
+            transform: scale(1.02);
+            box-shadow: 0 0 30px rgba(212, 175, 55, 0.4);
+        }
+
+        /* Address Map Simulation */
+        .address-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 20px;
+            padding: 50px 10%;
+        }
+
+        .address-item {
+            font-size: 0.9rem;
+            color: #aaa;
+            padding: 20px;
+            border-left: 3px solid red; /* Map Pin Color */
+            background: rgba(255, 0, 0, 0.05);
+        }
+
+        .address-item b {
+            color: white;
+            display: block;
+            margin-bottom: 5px;
+        }
+
+        footer {
+            text-align: center;
+            padding: 50px;
+            color: #555;
+            border-top: 1px solid #222;
+        }
+    </style>
+</head>
+<body>
+
+    <div class="bg-glow"></div>
+
+    <header>
+        <div class="subtitle">Welcome to Excellence</div>
+        <h1>Habibs</h1>
+        <div class="subtitle">Hair & Beauty Salon | Unisex</div>
+    </header>
+
+    <h2 class="section-title">Exclusive Services</h2>
+    
+    <div class="services-container">
+        <div class="service-card">
+            <h3>Nail Artistry</h3>
+            <ul>
+                <li>Acrylic Nail Extension</li>
+                <li>Acrylic Permanent Extension</li>
+                <li>Anti Tan Pedicure</li>
+                <li>Premium Manicure</li>
+            </ul>
+        </div>
+        <div class="service-card">
+            <h3>Hair Mastery</h3>
+            <ul>
+                <li>Advance Hair Cut</li>
+                <li>Hair Styling</li>
+                <li>Hair Extension</li>
+                <li>Professional Care</li>
+            </ul>
+        </div>
+        <div class="service-card">
+            <h3>Precision</h3>
+            <ul>
+                <li>Threading - Eyebrows</li>
+                <li>Facial Hair Removal</li>
+                <li>Skin Treatments</li>
+            </ul>
+        </div>
+    </div>
+
+    <div class="booking-section" id="booking">
+        <div class="booking-box">
+            <h2 style="text-align:center; margin-bottom: 30px; font-family: 'Syncopate';">Reserve Your Slot</h2>
+            
+            <label>Full Name</label>
+            <input type="text" id="userName" placeholder="Enter your name">
+
+            <label>Select Your Nearest Branch</label>
+            <select id="locationSelect">
+                <option value="Shiv-Gaurav Estate, Bhagwaghar Layout">Branch 1: Bhagwaghar Layout</option>
+                <option value="Godrej Anandam, Ganeshpeth">Branch 2: Ganeshpeth Colony</option>
+                <option value="Abhyankar Nagar Rd, Madhav Nagar">Branch 3: Madhav Nagar</option>
+                <option value="Gandhi Grain market, Telephone Exchange Sq">Branch 4: Telephone Exchange</option>
+                <option value="Ring Road, Trimurti Nagar">Branch 5: Trimurti Nagar</option>
+                <option value="Ram residency, Manish Nagar">Branch 6: Manish Nagar</option>
+                <option value="Manewada Rd, Bajrang Nagar">Branch 7: Bajrang Nagar</option>
+                <option value="Nelco Society, KT Nagar">Branch 8: Friends Colony</option>
+            </select>
+
+            <button class="btn-gold" onclick="sendBooking()">Book Appointment Now</button>
+            
+            <div id="contactOption" style="display:none; text-align:center; margin-top: 30px;">
+                <p style="color: #d4af37;">Need Immediate Help?</p>
+                <a href="tel:8767695492" style="color: white; font-size: 1.5rem; text-decoration: none; font-weight: bold;">Call Us: +91 8767695492</a>
+            </div>
+        </div>
+    </div>
+
+    <h2 class="section-title">Our Locations</h2>
+    <div class="address-grid">
+        <div class="address-item"><b>Branch 1</b>Plot no,02,G-3,4, Shiv-Gaurav Estate, Bhagwaghar Layout, Nagpur</div>
+        <div class="address-item"><b>Branch 2</b>Arcade 1, Godrej Anandam, Ganeshpeth Colony, Nagpur</div>
+        <div class="address-item"><b>Branch 3</b>JP Chambers, Abhyankar Nagar Rd, Madhav Nagar, Nagpur</div>
+        <div class="address-item"><b>Branch 4</b>Thawrani Bhawan 4/32 Gandhi Grain market, Nagpur</div>
+        <div class="address-item"><b>Branch 5</b>Himpushpa Apartments, Ring Road, Trimurti Nagar, Nagpur</div>
+        <div class="address-item"><b>Branch 6</b>Shop 01-02, Ram residency, Manish Nagar, Nagpur</div>
+        <div class="address-item"><b>Branch 7</b>Shop 1, 3 and 4, Manewada Rd, Bajrang Nagar, Nagpur</div>
+        <div class="address-item"><b>Branch 8</b>Plot No 106, Nelco Housing Society, KT Nagar, Nagpur</div>
+    </div>
+
+    <footer>
+        &copy; 2026 Habibs Hair & Beauty Salon | Designed for Elite Clients
+    </footer>
+
+    <script>
+        function sendBooking() {
+            const name = document.getElementById('userName').value;
+            const loc = document.getElementById('locationSelect').value;
+            const phone = "8767695492";
+
+            if(name === "") {
+                alert("Please enter your name");
+                return;
+            }
+
+            // Show Contact Option after booking attempt
+            document.getElementById('contactOption').style.display = "block";
+
+            // Create WhatsApp Message
+            const message = `Hello Habibs! I would like to book an appointment.%0A%0A*Name:* ${name}%0A*Branch:* ${loc}%0A*Request:* Table Reservation Style Booking`;
+            
+            window.open(`https://wa.me/${phone}?text=${message}`, '_blank');
+        }
+    </script>
+</body>
+</html>
