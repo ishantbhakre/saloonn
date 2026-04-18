@@ -3,116 +3,150 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Habibs Hair & Beauty Salon | Nagpur Elite</title>
-    <link href="https://fonts.googleapis.com/css2?family=Syncopate:wght@700&family=Inter:wght@300;400;600&display=swap" rel="stylesheet">
+    <title>Habibs Hair & Beauty | Nagpur's Elite Salon</title>
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Syncopate:wght@700&family=Montserrat:wght@300;400;600&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css" />
     <style>
         :root {
             --habibs-red: #e61e25;
-            --dark-bg: #050505;
-            --glass: rgba(255, 255, 255, 0.03);
+            --dark: #050505;
+            --white: #ffffff;
+            --glass: rgba(255, 255, 255, 0.05);
             --border: rgba(230, 30, 37, 0.3);
         }
 
-        * { margin: 0; padding: 0; box-sizing: border-box; scroll-behavior: smooth; }
-        body { background: var(--dark-bg); color: white; font-family: 'Inter', sans-serif; line-height: 1.6; }
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+        body { background: var(--dark); color: var(--white); font-family: 'Montserrat', sans-serif; overflow-x: hidden; scroll-behavior: smooth; }
 
-        /* --- HERO SECTION --- */
+        /* --- NAVIGATION --- */
+        .navbar {
+            position: fixed;
+            top: 0; width: 100%;
+            display: flex; justify-content: flex-end;
+            padding: 25px 5%; z-index: 2000;
+            background: linear-gradient(to bottom, rgba(0,0,0,0.9), transparent);
+        }
+        .navbar a {
+            color: var(--white); text-decoration: none;
+            margin-left: 25px; font-size: 0.75rem;
+            letter-spacing: 2px; text-transform: uppercase;
+            font-weight: 600; transition: 0.3s;
+        }
+        .navbar a:hover { color: var(--habibs-red); }
+
+        /* --- HERO VIDEO --- */
         .hero {
-            position: relative;
-            height: 100vh;
-            display: flex;
-            align-items: center;
-            justify-content: center;
+            height: 100vh; width: 100%;
+            position: relative; display: flex;
+            align-items: center; justify-content: center;
             overflow: hidden;
         }
-        video#myVideo {
-            position: absolute;
-            top: 50%; left: 50%;
+        #bg-video {
+            position: absolute; top: 50%; left: 50%;
             min-width: 100%; min-height: 100%;
             transform: translate(-50%, -50%);
-            z-index: 0; object-fit: cover;
-            filter: brightness(0.4);
+            object-fit: cover; filter: brightness(0.4); z-index: 0;
         }
-        .overlay { position: absolute; top: 0; left: 0; width: 100%; height: 100%; background: rgba(0,0,0,0.3); z-index: 1; }
-        .hero-content { z-index: 2; text-align: center; }
+        .brand-overlay { z-index: 10; text-align: center; }
         .logo-main {
             font-family: 'Syncopate', sans-serif;
-            font-size: clamp(3rem, 10vw, 80px);
+            font-size: clamp(3rem, 10vw, 6rem);
             color: var(--habibs-red);
             -webkit-text-stroke: 2px white;
-            text-shadow: 5px 5px 15px rgba(0,0,0,0.8);
+            letter-spacing: 10px;
             margin-bottom: 10px;
+            text-shadow: 0 0 30px rgba(230, 30, 37, 0.5);
         }
-        .logo-sub { background: var(--habibs-red); letter-spacing: 10px; padding: 5px 20px; display: inline-block; font-weight: bold; }
-        
-        .cta-container { margin-top: 40px; display: flex; gap: 20px; justify-content: center; }
+        .cta-buttons { margin-top: 30px; display: flex; gap: 15px; justify-content: center; }
         .btn {
-            padding: 15px 35px;
-            border-radius: 50px;
-            text-decoration: none;
-            font-weight: bold;
-            text-transform: uppercase;
-            transition: 0.3s;
-            font-size: 0.9rem;
+            padding: 15px 30px; border-radius: 5px;
+            text-decoration: none; font-weight: bold;
+            text-transform: uppercase; font-size: 0.8rem;
+            transition: 0.3s; letter-spacing: 1px;
         }
-        .btn-red { background: var(--habibs-red); color: white; border: none; }
-        .btn-outline { border: 2px solid white; color: white; }
-        .btn:hover { transform: scale(1.05); box-shadow: 0 0 20px rgba(230, 30, 37, 0.5); }
+        .btn-red { background: var(--habibs-red); color: white; }
+        .btn-outline { border: 1px solid white; color: white; }
+        .btn:hover { transform: translateY(-3px); box-shadow: 0 10px 20px rgba(230, 30, 37, 0.3); }
 
-        /* --- COMMON LAYOUT --- */
-        section { padding: 100px 10%; border-bottom: 1px solid #111; }
-        .section-header { font-family: 'Syncopate'; font-size: 2.5rem; text-align: center; margin-bottom: 50px; color: var(--habibs-red); }
-
-        /* --- ABOUT --- */
-        .about-text { max-width: 800px; margin: 0 auto; text-align: center; font-size: 1.2rem; color: #ccc; }
+        /* --- SECTIONS --- */
+        section { padding: 100px 10%; }
+        .section-title {
+            font-family: 'Syncopate', sans-serif;
+            font-size: 2rem; color: var(--habibs-red);
+            text-align: center; margin-bottom: 50px;
+            letter-spacing: 5px;
+        }
 
         /* --- SERVICES --- */
-        .services-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(300px, 1fr)); gap: 30px; }
+        .services-grid {
+            display: grid; grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 25px;
+        }
         .service-card {
-            background: var(--glass);
-            border: 1px solid var(--border);
-            padding: 30px;
-            border-radius: 15px;
-            transition: 0.4s;
+            background: var(--glass); border: 1px solid var(--border);
+            padding: 40px; border-radius: 5px; transition: 0.4s;
         }
-        .service-card:hover { background: rgba(230, 30, 37, 0.1); border-color: var(--habibs-red); }
-        .service-card h3 { color: var(--habibs-red); margin-bottom: 15px; font-family: 'Syncopate'; font-size: 1.2rem; }
-        .service-card p { font-size: 0.9rem; color: #aaa; margin-bottom: 10px; }
+        .service-card:hover { border-color: var(--habibs-red); background: rgba(230, 30, 37, 0.05); }
+        .service-card h3 { color: var(--habibs-red); margin-bottom: 15px; font-size: 1.2rem; }
+        .service-card p { font-size: 0.9rem; color: #ccc; margin-bottom: 8px; }
 
-        /* --- REVIEWS --- */
-        .reviews-container { display: flex; overflow-x: auto; gap: 20px; padding-bottom: 20px; }
-        .review-card {
-            min-width: 350px;
-            background: #111;
-            padding: 25px;
-            border-radius: 10px;
-            border-left: 5px solid var(--habibs-red);
+        /* --- REVIEWS (The Specific Ones You Sent) --- */
+        .reviews-scroll {
+            display: flex; overflow-x: auto; gap: 20px; padding-bottom: 30px;
         }
-        .stars { color: #f1c40f; margin-bottom: 10px; }
-        .reviewer { font-weight: bold; display: block; margin-top: 15px; color: var(--habibs-red); }
+        .reviews-scroll::-webkit-scrollbar { height: 4px; }
+        .reviews-scroll::-webkit-scrollbar-thumb { background: var(--habibs-red); }
+        .review-card {
+            min-width: 320px; background: #111; padding: 25px; border-radius: 5px;
+        }
+        .stars { color: #ffcc00; margin-bottom: 10px; }
+        .review-text { font-size: 0.85rem; color: #bbb; font-style: italic; }
+        .reviewer { display: block; margin-top: 15px; font-weight: 600; color: var(--habibs-red); font-size: 0.8rem; }
 
         /* --- BOOKING --- */
-        .booking-box { background: #111; padding: 40px; border-radius: 20px; max-width: 700px; margin: 0 auto; border: 1px solid #333; }
-        .form-group { margin-bottom: 20px; }
-        input, select { width: 100%; padding: 15px; background: #000; border: 1px solid #333; color: white; border-radius: 5px; }
+        .booking-container { display: flex; justify-content: center; }
+        .booking-card {
+            background: var(--glass); backdrop-filter: blur(10px);
+            border: 1px solid var(--border); padding: 40px;
+            border-radius: 5px; width: 100%; max-width: 500px;
+        }
+        .input-group { margin-bottom: 15px; }
+        .input-group input, .input-group select {
+            width: 100%; padding: 15px; background: #000;
+            border: 1px solid #333; color: white; outline: none;
+        }
+        .confirm-btn {
+            width: 100%; padding: 18px; background: var(--habibs-red);
+            border: none; color: white; font-weight: bold;
+            text-transform: uppercase; cursor: pointer; transition: 0.3s;
+        }
+        .confirm-btn:hover { letter-spacing: 2px; background: #b3161b; }
 
-        /* --- FOOTER & INFO --- */
-        .info-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(200px, 1fr)); gap: 40px; text-align: center; }
-        #map { height: 400px; border-radius: 20px; margin-top: 50px; filter: grayscale(1) invert(1); }
+        /* --- MAP & FOOTER --- */
+        #map { height: 500px; width: 100%; filter: grayscale(1) invert(1) contrast(1.2); border-top: 1px solid var(--habibs-red); }
+        footer { padding: 60px 10%; background: #000; text-align: center; }
+        .contact-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(200px, 1fr)); gap: 30px; margin-bottom: 40px; }
+        .info-box h4 { color: var(--habibs-red); margin-bottom: 10px; font-size: 0.8rem; letter-spacing: 2px; }
     </style>
 </head>
 <body>
 
+    <nav class="navbar">
+        <a href="#about">About</a>
+        <a href="#services">Services</a>
+        <a href="#reviews">Reviews</a>
+        <a href="#booking">Booking</a>
+    </nav>
+
     <div class="hero">
-        <video autoplay muted loop playsinline id="myVideo">
+        <video autoplay muted loop playsinline id="bg-video">
             <source src="salon_video.mp4" type="video/mp4">
         </video>
-        <div class="overlay"></div>
-        <div class="hero-content">
+        <div class="brand-overlay">
             <h1 class="logo-main">HABIBS</h1>
-            <div class="logo-sub">HAIR & BEAUTY</div>
-            <div class="cta-container">
+            <p style="letter-spacing: 12px; color: #fff; font-size: 0.9rem; font-weight: 600;">HAIR & BEAUTY SALON | NAGPUR</p>
+            <div class="cta-buttons">
                 <a href="#booking" class="btn btn-red">Book Appointment</a>
                 <a href="#services" class="btn btn-outline">View Services</a>
             </div>
@@ -120,129 +154,120 @@
     </div>
 
     <section id="about">
-        <h2 class="section-header">Legendary Care</h2>
-        <div class="about-text">
-            <p>With 8 premier branches across Nagpur, Habibs Hair & Beauty Salon is more than just a haircut—it’s a legacy of style. We combine the world-renowned Habib's techniques with personalized care. Whether you are looking for a dramatic global highlight or a relaxing facial after a long journey, our experts like Sanjay, Kartik, and Ashwini are here to transform your look.</p>
-        </div>
+        <h2 class="section-title">The Legend of Hair</h2>
+        <p style="text-align: center; line-height: 2; color: #bbb; max-width: 800px; margin: 0 auto;">
+            Experience professional excellence across 8 premier locations in Nagpur. Habibs Hair & Beauty is a sanctuary where skill meets style. Our master stylists specialize in transformative hair artistry, precision grooming, and luxury skincare, ensuring every visit is an elite experience tailored to your unique persona.
+        </p>
     </section>
 
     <section id="services">
-        <h2 class="section-header">Premium Services</h2>
+        <h2 class="section-header section-title">Our Expertise</h2>
         <div class="services-grid">
             <div class="service-card">
-                <h3>Nail Artistry</h3>
-                <p>Acrylic Extensions & Permanent Polish. Expertly shaped to match your style.</p>
-                <p><b>Includes:</b> Acrylic Nail Extension, Permanent Extension, Anti-Tan Pedicure.</p>
+                <h3><i class="fas fa-scissors"></i> Hair Mastery</h3>
+                <p>Advance Hair Cut & Styling</p>
+                <p>Global Highlights & Botox</p>
+                <p>Professional Extensions</p>
             </div>
             <div class="service-card">
-                <h3>Hair Mastering</h3>
-                <p>Advanced cuts and cinematic styling from Nagpur's top hair artists.</p>
-                <p><b>Includes:</b> Global Highlights, Hair Botox, Spa, and Unisex Styling.</p>
+                <h3><i class="fas fa-hand-sparkles"></i> Nail Artistry</h3>
+                <p>Acrylic Permanent Extension</p>
+                <p>Anti Tan Pedicure</p>
+                <p>Premium Manicure</p>
             </div>
             <div class="service-card">
-                <h3>Skin & Glow</h3>
-                <p>Luxury facials and relaxation treatments to rejuvenate your skin.</p>
-                <p><b>Includes:</b> O3 De-tan Cleanup, Princess-style Facials, Threading.</p>
+                <h3><i class="fas fa-sparkles"></i> Skin Care</h3>
+                <p>O3 De-tan Cleanup</p>
+                <p>Threading & Hair Removal</p>
+                <p>Unisex Facial Treatments</p>
             </div>
         </div>
     </section>
 
-    <section>
-        <h2 class="section-header">Customer Stories</h2>
-        <div class="reviews-container">
+    <section id="reviews">
+        <h2 class="section-title">Customer Reviews</h2>
+        <div class="reviews-scroll">
             <div class="review-card">
                 <div class="stars">★★★★★</div>
-                <p>"I got my wife’s hair global highlight from Sanjay. He is very nice and has good skills. Great service and happy with her hair do!"</p>
+                <p class="review-text">"I got my wife’s hair global highlight from Sanjay (Stylist). He is very nice and has good skills. Great service and happy with her hair do."</p>
                 <span class="reviewer">- Verified Customer</span>
             </div>
             <div class="review-card">
                 <div class="stars">★★★★★</div>
-                <p>"I was treated like a princess! Amazing facial and massage by Ashwini. She does with all honesty and genuine love."</p>
+                <p class="review-text">"I was treated like a princess! Amazing facial and massage by Ashwini. A full relaxation of nerves and muscles. She does with all honesty."</p>
                 <span class="reviewer">- Shilpi Bose</span>
             </div>
             <div class="review-card">
                 <div class="stars">★★★★★</div>
-                <p>"Great job on my haircut! Kartik sir really understood what I wanted and made it look even better. Attention to detail is 10/10."</p>
+                <p class="review-text">"Great job on my haircut today! Kartik sir really understood what I wanted and made it look even better. Thanks for the detail."</p>
                 <span class="reviewer">- Abhishek Kanoje</span>
             </div>
+            <div class="review-card">
+                <div class="stars">★★★★★</div>
+                <p class="review-text">"I recently got my haircut done by this amazing artist Mr Sanjay, and I must say he is excellent at his work! He understands exactly what style suits you."</p>
+                <span class="reviewer">- Suresh Meena</span>
+            </div>
         </div>
     </section>
 
-    <section id="booking">
-        <h2 class="section-header">Reserve Your Spot</h2>
-        <div class="booking-box">
-            <div class="form-group">
-                <label>Full Name</label>
-                <input type="text" id="name" placeholder="Enter your name">
-            </div>
-            <div class="form-group">
-                <label>Select Your Nearest Branch</label>
-                <select id="branch">
-                    <option>Shiv-Gaurav Estate, Bhagwaghar Layout</option>
-                    <option>Godrej Anandam, Ganeshpeth Colony</option>
-                    <option>Abhyankar Nagar Rd, Madhav Nagar</option>
-                    <option>Gandhi Grain market, Telephone Exchange Sq</option>
-                    <option>Ring Road, Trimurti Nagar</option>
-                    <option>Manish Nagar, Somalwada</option>
-                    <option>Manewada Rd, Bajrang Nagar</option>
-                    <option>Friends Colony, KT Nagar</option>
-                </select>
-            </div>
-            <div class="form-group" style="display:flex; gap:10px;">
-                <input type="date" id="date">
-                <input type="time" id="time">
-            </div>
-            <button class="btn btn-red" style="width:100%;" onclick="sendBooking()">Confirm Appointment</button>
+    <section id="booking" class="booking-container">
+        <div class="booking-card">
+            <h2 style="font-family: 'Syncopate'; color: var(--habibs-red); text-align: center; margin-bottom: 30px;">RESERVATION</h2>
+            <form id="resForm">
+                <div class="input-group"><input type="text" id="name" placeholder="Full Name" required></div>
+                <div class="input-group">
+                    <select id="branch" required>
+                        <option value="" disabled selected>Select Your Nearest Branch</option>
+                        <option>Shiv-Gaurav Estate, Bhagwaghar Layout</option>
+                        <option>Godrej Anandam, Ganeshpeth Colony</option>
+                        <option>Abhyankar Nagar Rd, Madhav Nagar</option>
+                        <option>Gandhi Grain market, Telephone Exchange Sq</option>
+                        <option>Ring Road, Trimurti Nagar</option>
+                        <option>Manish Nagar, Somalwada</option>
+                        <option>Manewada Rd, Bajrang Nagar</option>
+                        <option>Friends Colony, KT Nagar</option>
+                    </select>
+                </div>
+                <div class="input-group" style="display:flex; gap:10px;">
+                    <input type="date" id="date" required>
+                    <input type="time" id="time" required>
+                </div>
+                <div class="input-group"><input type="tel" id="phone" placeholder="Contact Number" required></div>
+                <button type="submit" class="confirm-btn">Confirm Appointment</button>
+            </form>
         </div>
     </section>
 
-    <section>
-        <div class="info-grid">
-            <div>
-                <h3 style="color:var(--habibs-red); margin-bottom:10px;">CALL US</h3>
-                <p>+91 8767695492</p>
+    <div id="map"></div>
+
+    <footer>
+        <div class="contact-grid">
+            <div class="info-box">
+                <h4>VISIT US</h4>
+                <p style="font-size: 0.8rem; color: #888;">8 Branches across Nagpur, MH</p>
             </div>
-            <div>
-                <h3 style="color:var(--habibs-red); margin-bottom:10px;">WORKING HOURS</h3>
-                <p>Daily: 9:00 AM - 10:00 PM</p>
+            <div class="info-box">
+                <h4>HOURS</h4>
+                <p style="font-size: 0.8rem; color: #888;">OPEN DAILY: 9:00 AM - 10:00 PM</p>
             </div>
-            <div>
-                <h3 style="color:var(--habibs-red); margin-bottom:10px;">LOCATIONS</h3>
-                <p>8 Branches across Nagpur</p>
+            <div class="info-box">
+                <h4>CONTACT</h4>
+                <p style="font-size: 0.8rem; color: #888;">+91 8767695492</p>
             </div>
         </div>
-        <div id="map"></div>
-    </section>
-
-    <footer style="text-align:center; padding: 40px; background:#000; color:#444;">
-        &copy; 2026 Habibs Hair & Beauty Salon | Professional Grooming
+        <p style="color: #444; font-size: 0.7rem; letter-spacing: 2px;">© 2026 HABIBS HAIR & BEAUTY NAGPUR</p>
     </footer>
 
     <script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js"></script>
     <script>
-        // Force Video Play
-        window.onload = function() {
-            var v = document.getElementById('myVideo');
-            if(v) v.play();
-        }
+        // Form Submission
+        document.getElementById('resForm').addEventListener('submit', function(e) {
+            e.preventDefault();
+            const message = `*Habibs Nagpur Reservation*%0A*Name:* ${document.getElementById('name').value}%0A*Branch:* ${document.getElementById('branch').value}%0A*Date:* ${document.getElementById('date').value}%0A*Time:* ${document.getElementById('time').value}%0A*Phone:* ${document.getElementById('phone').value}`;
+            window.open(`https://wa.me/918767695492?text=${message}`, '_blank');
+        });
 
-        // WhatsApp Booking
-        function sendBooking() {
-            const name = document.getElementById('name').value;
-            const loc = document.getElementById('branch').value;
-            const date = document.getElementById('date').value;
-            const time = document.getElementById('time').value;
-
-            if(!name || !date || !time) {
-                alert("Please complete all fields.");
-                return;
-            }
-
-            const msg = `*NEW APPOINTMENT*%0A*Name:* ${name}%0A*Branch:* ${loc}%0A*Date:* ${date}%0A*Time:* ${time}`;
-            window.open(`https://wa.me/918767695492?text=${msg}`);
-        }
-
-        // Nagpur Map Markers
+        // Initialize Map
         var map = L.map('map').setView([21.1458, 79.0882], 12);
         L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png').addTo(map);
 
@@ -252,8 +277,8 @@
             [21.1120, 79.1120], [21.1680, 79.0480]
         ];
 
-        branches.forEach(coords => {
-            L.circleMarker(coords, { color: 'red', radius: 10, fillOpacity: 0.9 }).addTo(map);
+        branches.forEach(pos => {
+            L.circleMarker(pos, { color: '#e61e25', radius: 10, fillOpacity: 0.8 }).addTo(map);
         });
     </script>
 </body>
