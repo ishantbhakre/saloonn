@@ -3,32 +3,26 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Habibs Hair & Beauty Salon | Nagpur Elite</title>
-    <link href="https://fonts.googleapis.com/css2?family=Syncopate:wght@400;700&family=Inter:wght@300;400;600&display=swap" rel="stylesheet">
+    <title>Habibs Hair & Beauty Salon | Nagpur</title>
+    <link href="https://fonts.googleapis.com/css2?family=Syncopate:wght@700&family=Inter:wght@400;600&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css" />
     <style>
         :root {
             --habibs-red: #e61e25;
-            --habibs-gradient: linear-gradient(145deg, #ff3131, #800000);
             --dark-bg: #050505;
-            --glass: rgba(255, 255, 255, 0.05);
-            --border: rgba(230, 30, 37, 0.3);
         }
 
-        * { margin: 0; padding: 0; box-sizing: border-box; font-family: 'Inter', sans-serif; }
-        body { background-color: var(--dark-bg); color: white; overflow-x: hidden; }
+        body { background: var(--dark-bg); color: white; margin: 0; font-family: 'Inter', sans-serif; overflow-x: hidden; }
 
-        /* Video Background Styling */
-        .hero-video-container {
+        /* Video Header */
+        .hero {
             position: relative;
             height: 100vh;
-            width: 100%;
-            overflow: hidden;
             display: flex;
             flex-direction: column;
             justify-content: center;
             align-items: center;
-            text-align: center;
+            overflow: hidden;
         }
 
         #bg-video {
@@ -37,215 +31,143 @@
             left: 50%;
             min-width: 100%;
             min-height: 100%;
-            width: auto;
-            height: auto;
-            z-index: -1;
             transform: translate(-50%, -50%);
-            filter: brightness(0.4) grayscale(0.2);
+            z-index: -1;
             object-fit: cover;
+            filter: brightness(0.5);
         }
 
-        .logo-text {
+        .logo-box { text-align: center; z-index: 1; }
+
+        .logo-main {
             font-family: 'Syncopate', sans-serif;
-            font-size: 6rem;
-            font-weight: 700;
+            font-size: clamp(3rem, 10vw, 7rem);
             color: var(--habibs-red);
-            text-transform: uppercase;
-            letter-spacing: -5px;
-            text-shadow: 0 0 20px rgba(230, 30, 37, 0.6), 3px 3px 0px #fff;
-            line-height: 0.8;
-            margin-bottom: 20px;
+            text-shadow: 2px 2px 0px #fff, 4px 4px 15px rgba(230, 30, 37, 0.7);
+            line-height: 0.9;
         }
 
-        .logo-subtext {
+        .logo-sub {
             background: var(--habibs-red);
-            color: white;
             padding: 5px 20px;
             font-size: 1.2rem;
-            letter-spacing: 10px;
-            text-transform: uppercase;
-            font-weight: 600;
+            letter-spacing: 8px;
+            display: inline-block;
+            margin-top: 10px;
         }
 
-        /* Standardized Booking Form */
-        .booking-section { padding: 80px 10%; background: #080808; }
-        .booking-box {
-            background: var(--glass);
+        /* Booking Form */
+        .container { padding: 60px 10%; }
+        .booking-card {
+            background: rgba(255,255,255,0.05);
+            backdrop-filter: blur(15px);
+            border: 1px solid rgba(230, 30, 37, 0.3);
             padding: 40px;
             border-radius: 20px;
-            border: 1px solid var(--border);
-            max-width: 900px;
+            max-width: 800px;
             margin: 0 auto;
-            backdrop-filter: blur(15px);
-            box-shadow: 0 20px 50px rgba(0,0,0,0.5);
-        }
-
-        .form-grid {
-            display: grid;
-            grid-template-columns: 1fr 1fr;
-            gap: 20px;
-            margin-top: 30px;
         }
 
         input, select {
             width: 100%;
-            padding: 18px;
+            padding: 15px;
+            margin: 10px 0 20px;
             background: #111;
             border: 1px solid #333;
             color: white;
-            border-radius: 8px;
-            outline: none;
-            transition: 0.3s;
+            border-radius: 5px;
         }
 
-        input:focus, select:focus { border-color: var(--habibs-red); box-shadow: 0 0 10px rgba(230, 30, 37, 0.2); }
-
-        .btn-reserve {
-            grid-column: span 2;
-            background: var(--habibs-gradient);
+        .btn-book {
+            background: linear-gradient(to right, #e61e25, #800000);
             color: white;
+            width: 100%;
             padding: 20px;
             border: none;
-            border-radius: 8px;
-            font-weight: 700;
+            font-weight: bold;
             text-transform: uppercase;
             cursor: pointer;
             font-size: 1.1rem;
-            margin-top: 10px;
-            transition: 0.4s ease;
         }
 
-        .btn-reserve:hover { transform: translateY(-3px); box-shadow: 0 10px 30px rgba(230, 30, 37, 0.4); }
-
-        /* Map Styling */
-        #map {
-            height: 500px;
-            width: 100%;
-            margin-top: 50px;
-            border-radius: 20px;
-            border: 2px solid var(--habibs-red);
-            filter: invert(100%) hue-rotate(180deg) brightness(0.8); /* Dark Map Mode */
-        }
-
-        .section-header {
-            text-align: center;
-            font-family: 'Syncopate';
-            font-size: 2.5rem;
-            margin-bottom: 50px;
-            color: white;
-        }
-
-        footer { text-align: center; padding: 40px; border-top: 1px solid #222; margin-top: 50px; color: #444; }
+        #map { height: 450px; border-radius: 15px; border: 2px solid var(--habibs-red); margin-top: 30px; }
+        
+        h2 { font-family: 'Syncopate'; text-align: center; margin-bottom: 30px; }
     </style>
 </head>
 <body>
 
-    <div class="hero-video-container">
-    <video autoplay muted loop playsinline id="bg-video">
-        <source src="Saloon_Video.mp4" type="video/mp4">
-        Your browser does not support the video tag.
-    </video>
-    
-    <div class="logo-text">HABIBS</div>
-    <div class="logo-subtext">HAIR & BEAUTY</div>
-</div>
+    <section class="hero">
+        <video autoplay muted loop playsinline id="bg-video">
+            <source src="salon_video.mp4" type="video/mp4">
+        </video>
+        <div class="logo-box">
+            <div class="logo-main">HABIBS</div>
+            <div class="logo-sub">HAIR & BEAUTY</div>
+        </div>
+    </section>
 
-    <div class="booking-section">
-        <h2 class="section-header">RESERVE YOUR SPOT</h2>
-        <div class="booking-box">
-            <div class="form-grid">
-                <div>
-                    <label>Full Name</label>
-                    <input type="text" id="name" placeholder="E.g. John Doe">
-                </div>
-                <div>
-                    <label>Nearest Location</label>
-                    <select id="branch">
-                        <option value="Bhagwaghar Layout">Bhagwaghar Layout</option>
-                        <option value="Ganeshpeth Colony">Ganeshpeth Colony</option>
-                        <option value="Madhav Nagar">Madhav Nagar</option>
-                        <option value="Telephone Exchange Sq">Telephone Exchange</option>
-                        <option value="Trimurti Nagar">Trimurti Nagar</option>
-                        <option value="Manish Nagar">Manish Nagar</option>
-                        <option value="Bajrang Nagar">Bajrang Nagar</option>
-                        <option value="Friends Colony">Friends Colony</option>
-                    </select>
-                </div>
-                <div>
-                    <label>Date</label>
-                    <input type="date" id="date">
-                </div>
-                <div>
-                    <label>Preferred Time</label>
-                    <input type="time" id="time">
-                </div>
-                <button class="btn-reserve" onclick="sendToWhatsApp()">Confirm Reservation</button>
-            </div>
+    <section class="container">
+        <h2>RESERVE YOUR SPOT</h2>
+        <div class="booking-card">
+            <label>Your Name</label>
+            <input type="text" id="name" placeholder="Name">
             
-            <div id="contactInfo" style="display:none; text-align:center; margin-top: 30px; border-top: 1px solid #333; padding-top: 20px;">
-                <p style="color: #888;">For inquiries, call us directly:</p>
-                <a href="tel:8767695492" style="color: var(--habibs-red); font-size: 1.8rem; text-decoration: none; font-weight: bold;">+91 8767695492</a>
+            <label>Select Branch</label>
+            <select id="branch">
+                <option>Bhagwaghar Layout</option>
+                <option>Ganeshpeth Colony</option>
+                <option>Madhav Nagar</option>
+                <option>Telephone Exchange Square</option>
+                <option>Trimurti Nagar</option>
+                <option>Manish Nagar</option>
+                <option>Bajrang Nagar</option>
+                <option>Friends Colony</option>
+            </select>
+
+            <label>Date & Time</label>
+            <div style="display:flex; gap:10px;">
+                <input type="date" id="date">
+                <input type="time" id="time">
+            </div>
+
+            <button class="btn-book" onclick="bookNow()">Confirm Booking</button>
+            <div id="callNow" style="display:none; text-align:center; margin-top:20px;">
+                <a href="tel:8767695492" style="color:var(--habibs-red); font-size:1.5rem; text-decoration:none;">Call: 8767695492</a>
             </div>
         </div>
-    </div>
+    </section>
 
-    <div class="booking-section">
-        <h2 class="section-header">OUR BRANCHES</h2>
+    <section class="container">
+        <h2>LOCATIONS</h2>
         <div id="map"></div>
-    </div>
-
-    <footer>
-        &copy; 2026 Habibs Hair & Beauty Salon Nagpur. Professional Excellence.
-    </footer>
+    </section>
 
     <script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js"></script>
     <script>
-        // WhatsApp Integration
-        function sendToWhatsApp() {
+        function bookNow() {
             const name = document.getElementById('name').value;
             const branch = document.getElementById('branch').value;
             const date = document.getElementById('date').value;
             const time = document.getElementById('time').value;
-
-            if(!name || !date || !time) {
-                alert("Please fill in all the details to book your spot.");
-                return;
-            }
-
-            document.getElementById('contactInfo').style.display = "block";
-
-            const msg = `*NEW RESERVATION*%0A--------------------------%0A*Name:* ${name}%0A*Location:* Habibs ${branch}%0A*Date:* ${date}%0A*Time:* ${time}%0A--------------------------%0APlease confirm my slot.`;
-            window.open(`https://wa.me/918767695492?text=${msg}`, '_blank');
+            if(!name) return alert("Enter Name");
+            
+            document.getElementById('callNow').style.display = "block";
+            const msg = `*RESERVATION*%0AName: ${name}%0ABranch: ${branch}%0ADate: ${date}%0ATime: ${time}`;
+            window.open(`https://wa.me/918767695492?text=${msg}`);
         }
 
-        // Initialize Map for Nagpur
         var map = L.map('map').setView([21.1458, 79.0882], 12);
-
         L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png').addTo(map);
-
-        // Location Data (Approximate Nagpur Coordinates for 8 Branches)
-        const locations = [
-            { name: "Bhagwaghar Layout", coords: [21.1408, 79.0700] },
-            { name: "Ganeshpeth Colony", coords: [21.1444, 79.0910] },
-            { name: "Madhav Nagar", coords: [21.1255, 79.0667] },
-            { name: "Gandhi Grain Market", coords: [21.1485, 79.1150] },
-            { name: "Trimurti Nagar", coords: [21.1150, 79.0470] },
-            { name: "Manish Nagar", coords: [21.0960, 79.0820] },
-            { name: "Bajrang Nagar", coords: [21.1120, 79.1120] },
-            { name: "Friends Colony", coords: [21.1680, 79.0480] }
+        
+        const spots = [
+            [21.1408, 79.0700], [21.1444, 79.0910], [21.1255, 79.0667], 
+            [21.1485, 79.1150], [21.1150, 79.0470], [21.0960, 79.0820], 
+            [21.1120, 79.1120], [21.1680, 79.0480]
         ];
 
-        // Add Red Markers
-        locations.forEach(loc => {
-            var marker = L.circleMarker(loc.coords, {
-                radius: 10,
-                fillColor: "#e61e25",
-                color: "#fff",
-                weight: 2,
-                opacity: 1,
-                fillOpacity: 0.8
-            }).addTo(map);
-            marker.bindPopup(`<b>Habibs Salon</b><br>${loc.name}`);
+        spots.forEach(pos => {
+            L.circleMarker(pos, {color: 'red', radius: 8, fillOpacity: 0.8}).addTo(map);
         });
     </script>
 </body>
