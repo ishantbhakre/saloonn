@@ -1,0 +1,5 @@
+npx create-next-app@latest habibs-salon
+cd habibs-salon
+
+npm install tailwindcss framer-motion three @react-three/fiber @react-three/drei
+npx tailwindcss init -p
